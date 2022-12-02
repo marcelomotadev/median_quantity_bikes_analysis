@@ -1,40 +1,104 @@
+import datetime
 import pandas as pd
 import numpy as np
+# import matplotlib as mpl
+# import matplotlib.pyplot as plt
+import datetime as dt
+from datetime import date, timedelta
+from datetime import datetime
 
-data = pd.read_csv('bicicletas.csv')
+Base_Dados = pd.read_csv('bicicletas.csv')
 
-data_verao = data.query('(estacao == "verao")')
+#                                         quantidade de feriados
 
-data_verao_feriado = data.query('(estacao == "verao") & (feriado == 1)')
+feriado_outono = Base_Dados.query('(estacao == "outono") & (feriado == 1)')
+feriado_inverno = Base_Dados.query('(estacao == "inverno") & (feriado == 1)')
+feriado_verao = Base_Dados.query('(estacao == "verao") & (feriado == 1)')
+feriado_primavera = Base_Dados.query('(estacao == "primavera") & (feriado == 1)')
 
-# data_verao_feriado_00 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "0:00:00")')
-# data_verao_feriado_01 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "1:00:00")')
-# data_verao_feriado_02 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "2:00:00")')
-# data_verao_feriado_03 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "3:00:00")')
-# data_verao_feriado_04 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "4:00:00")')
-# data_verao_feriado_05 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "5:00:00")')
-# data_verao_feriado_06 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "6:00:00")')
-# data_verao_feriado_07 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "7:00:00")')
-# data_verao_feriado_08 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "8:00:00")')
-# data_verao_feriado_09 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "9:00:00")')
-# data_verao_feriado_10 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "10:00:00")')
-# data_verao_feriado_11 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "11:00:00")')
-# data_verao_feriado_12 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "12:00:00")')
-# data_verao_feriado_13 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "13:00:00")')
-# data_verao_feriado_14 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "14:00:00")')
-# data_verao_feriado_15 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "15:00:00")')
-# data_verao_feriado_16 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "16:00:00")')
-# data_verao_feriado_17 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "17:00:00")')
-# data_verao_feriado_18 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "18:00:00")')
-# data_verao_feriado_19 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "19:00:00")')
-# data_verao_feriado_20 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "20:00:00")')
-# data_verao_feriado_21 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "21:00:00")')
-# data_verao_feriado_22 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "22:00:00")')
-# data_verao_feriado_23 = data.query('(estacao == "verao") & (feriado == 1) & (hora == "23:00:00")')
+# unique() -> retorna os dias nunique() -> retorna retorna quantidade 
+
+feriados_outono = feriado_outono['data'].nunique()
+feriados_inverno = feriado_inverno['data'].nunique()
+feriados_verao = feriado_verao['data'].nunique()
+feriados_primavera = feriado_primavera['data'].nunique()
+
+# -------------------------------------------------------------------------------------------
+
+# funcao para encontrar quantos dias comecam com 2021 em uma lista e quantos comecam com 2022
+
+def encontra_dias(list):
+  y = 0
+  z = 0  
+  for x in list:  
+    if x.startswith('2021'):
+      y +=1
+    else:
+      z +=1
+  print('2021: ', y,'2022: ', z)
+
+# -----------------------------------------------------------------------------------------
+
+Base_Dados['data'] = pd.to_datetime( Base_Dados['data'])
+
+Base_Dados['Ano'] = pd.DatetimeIndex( Base_Dados['data'] ).year
+
+#                                         temperaturas médias
 
 
-# print(data_verao.describe())
-print(data_verao_feriado.groupby(by='data')['quantidade_de_bikes_utilizadas'].agg(['sum', 'max', np.mean]))
-print(data_verao_feriado.groupby(by='data')['temperatura'].agg(['min' , 'max', np.mean]))
+
+# outono_2021 = Base_Dados.query('(estacao == "outono") & (Ano == 2021)')
+# print(outono_2021.groupby(by='data')['temperatura'].agg([np.mean]).mean())
+# primavera_2021 = Base_Dados.query('(estacao == "primavera") & (Ano == 2021)')
+# print(primavera_2021.groupby(by='data')['temperatura'].agg([np.mean]).mean())
+# verao_2021 = Base_Dados.query('(estacao == "verao") & (Ano == 2021)')
+# print(verao_2021.groupby(by='data')['temperatura'].agg([np.mean]).mean())
+# inverno_2021 = Base_Dados.query('(estacao == "inverno") & (Ano == 2021)')
+# print(inverno_2021.groupby(by='data')['temperatura'].agg([np.mean]).mean())
+
+# print('\n')
+
+# outono_2022 = Base_Dados.query('(estacao == "outono") & (Ano == 2022)')
+# print('outono 2022: ', outono_2022.groupby(by='data')['temperatura'].agg([np.mean]).mean())
+# primavera_2022 = Base_Dados.query('(estacao == "primavera") & (Ano == 2022)')
+# print('primavera 2022: ', primavera_2022.groupby(by='data')['temperatura'].agg([np.mean]).mean())
+# verao_2022 = Base_Dados.query('(estacao == "verao") & (Ano == 2022)')
+# print('verao 2022: ', verao_2022.groupby(by='data')['temperatura'].agg([np.mean]).mean())
+# inverno_2022 = Base_Dados.query('(estacao == "inverno") & (Ano == 2022)')
+# print('inverno 2022: ', inverno_2022.groupby(by='data')['temperatura'].agg([np.mean]).mean())
+# print('\n')
 
 
+#                                         quantidades médias
+
+
+# outono_2021 = Base_Dados.query('(estacao == "outono") & (Ano == 2021)')
+# print(outono_2021.groupby(by='data')['quantidade_de_bikes_utilizadas'].agg(['sum']).mean())
+# primavera_2021 = Base_Dados.query('(estacao == "primavera") & (Ano == 2021)')
+# print(primavera_2021.groupby(by='data')['quantidade_de_bikes_utilizadas'].agg(['sum']).mean())
+# verao_2021 = Base_Dados.query('(estacao == "verao") & (Ano == 2021)')
+# print(verao_2021.groupby(by='data')['quantidade_de_bikes_utilizadas'].agg(['sum']).mean())
+# inverno_2021 = Base_Dados.query('(estacao == "inverno") & (Ano == 2021)')
+# print(inverno_2021.groupby(by='data')['quantidade_de_bikes_utilizadas'].agg(['sum']).mean())
+
+# print('\n')
+
+# outono_2022 = Base_Dados.query('(estacao == "outono") & (Ano == 2022)')
+# print('outono 2022: ', outono_2022.groupby(by='data')['quantidade_de_bikes_utilizadas'].agg(['sum']).mean())
+# primavera_2022 = Base_Dados.query('(estacao == "primavera") & (Ano == 2022)')
+# print('primavera 2022: ', primavera_2022.groupby(by='data')['quantidade_de_bikes_utilizadas'].agg(['sum']).mean())
+# verao_2022 = Base_Dados.query('(estacao == "verao") & (Ano == 2022)')
+# print('verao 2022: ', verao_2022.groupby(by='data')['quantidade_de_bikes_utilizadas'].agg(['sum']).mean())
+# inverno_2022 = Base_Dados.query('(estacao == "inverno") & (Ano == 2022)')
+# print('inverno 2022: ', inverno_2022.groupby(by='data')['quantidade_de_bikes_utilizadas'].agg(['sum']).mean())
+# # print('\n')
+
+# print(Base_Dados.groupby('data')['quantidade_de_bikes_utilizadas'].agg(['sum']).mean())
+
+#                                         analisando feriados no verão
+
+analise_media_quantidade = feriado_verao.groupby(by='data')['quantidade_de_bikes_utilizadas'].agg(['min', 'max', 'sum', np.mean])
+print(analise_media_quantidade)
+print('\n')
+analise_media_temperatura = feriado_verao.groupby(by='data')['temperatura'].agg(['min', 'max', 'sum', np.mean])
+print(analise_media_temperatura)

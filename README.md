@@ -8,10 +8,6 @@ Usando a [base de dados](https://drive.google.com/file/d/1LTaWDwGDXALBUSqhjdWdOp
 
 Utilizei Python e bibliotecas como Pandas e Numpy para cáculo de métricas relevantes
 
-Resultados Encontrados:
+[Métricas Encontradas](https://imgur.com/a/an4nSzt)
 
-
-## Screenshots
-
-<img alt="License" src="https://imgur.com/a/an4nSzt">
-
+[Resultados Encontrados](https://imgur.com/a/k2TLtVg)

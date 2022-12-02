@@ -13,5 +13,5 @@ Resultados Encontrados:
 
 ## Screenshots
 
-![App Screenshot](imgur.com/a/an4nSzt)
+<img alt="License" src="https://imgur.com/a/an4nSzt">
 
